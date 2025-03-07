@@ -1,19 +1,3 @@
-let userConfig = undefined
-try {
-  userConfig = await import('./v0-user-next.config')
-} catch (e) {
-  // ignore error
-}
-
-// Get repository name from package.json for GitHub Pages path
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const { name } = require('./package.json');
-
-// GitHub Pages deployment - set basePath and assetPrefix for repository name
-const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
-const repositoryName = name || 'git-github-guide';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -22,40 +6,45 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Required for static export
+  output: 'export',
   images: {
     unoptimized: true,
   },
-  output: 'export',
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
   },
-  basePath: isGithubActions ? `/${repositoryName}` : '',
-  assetPrefix: isGithubActions ? `/${repositoryName}/` : '',
+  // Fixed basePath and assetPrefix for GitHub Pages
+  basePath: '/git-github-guide',
+  assetPrefix: '/git-github-guide/',
   distDir: 'dist',
 }
 
-mergeConfig(nextConfig, userConfig)
-
-function mergeConfig(nextConfig, userConfig) {
-  if (!userConfig) {
-    return
-  }
-
-  for (const key in userConfig) {
-    if (
-      typeof nextConfig[key] === 'object' &&
-      !Array.isArray(nextConfig[key])
-    ) {
-      nextConfig[key] = {
-        ...nextConfig[key],
-        ...userConfig[key],
+// Try to import user config
+let userConfig = undefined
+try {
+  userConfig = await import('./v0-user-next.config')
+  
+  // Merge user config with next config
+  if (userConfig) {
+    for (const key in userConfig) {
+      if (
+        typeof nextConfig[key] === 'object' &&
+        !Array.isArray(nextConfig[key])
+      ) {
+        nextConfig[key] = {
+          ...nextConfig[key],
+          ...userConfig[key],
+        }
+      } else {
+        nextConfig[key] = userConfig[key]
       }
-    } else {
-      nextConfig[key] = userConfig[key]
     }
   }
+} catch (e) {
+  // ignore error
 }
 
 export default nextConfig
