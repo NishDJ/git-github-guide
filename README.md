@@ -5,7 +5,9 @@ An interactive Next.js website providing visual guides and tutorials for Git and
 ## Demo
 
 <!-- Add your GIF here -->
-![Git GitHub Guide Demo](public/images/git-demo.gif)
+<div align="center">
+  <img src="public/images/git-demo.gif" alt="Git GitHub Guide Demo" width="100%" />
+</div>
 
 ## GitHub Pages Setup - IMPORTANT!
 
