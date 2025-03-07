@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Hack Nerd Font */
+@import url('https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css');
+
+* {
+  font-family: 'Hack', monospace;
+}
+
+@layer base {
+  :root {
+    /* Light theme variables */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 262 83% 58%; /* Dracula purple */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83% 58%; /* Dracula purple */
+
+    --radius: 0.5rem;
+
+    --chart-1: 265 89% 78%;
+    --chart-2: 180 100% 77%;
+    --chart-3: 120 100% 65%;
+    --chart-4: 326 100% 74%;
+    --chart-5: 60 100% 75%;
+  }
+
+  .dark {
+    /* Dark theme variables - Dracula inspired */
+    --background: 231 15% 18%; /* Dracula background */
+    --foreground: 60 30% 96%; /* Dracula foreground */
+
+    --card: 231 15% 18%;
+    --card-foreground: 60 30% 96%;
+
+    --popover: 231 15% 18%;
+    --popover-foreground: 60 30% 96%;
+
+    --primary: 326 100% 74%; /* Dracula pink */
+    --primary-foreground: 231 15% 18%;
+
+    --secondary: 231 15% 27%; /* Dracula currentLine */
+    --secondary-foreground: 60 30% 96%;
+
+    --muted: 231 15% 27%;
+    --muted-foreground: 217 24% 59%; /* Dracula comment */
+
+    --accent: 231 15% 27%;
+    --accent-foreground: 60 30% 96%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 30% 96%;
+
+    --border: 231 15% 27%;
+    --input: 231 15% 27%;
+    --ring: 326 100% 74%; /* Dracula pink */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Improve focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/50 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground;
+  }
+
+  /* Improve text rendering */
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Improve tap targets on mobile */
+  @media (max-width: 640px) {
+    button,
+    a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+}
+
+/* Mermaid diagram styling */
+.mermaid {
+  @apply bg-card rounded-md p-4 my-4 overflow-hidden;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Print styles for better PDF exports */
+@media print {
+  body {
+    @apply bg-white text-black;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  pre,
+  code {
+    @apply border border-gray-300 bg-gray-100;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Skip to content link for accessibility */
+.skip-to-content {
+  @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-md;
+}
+
