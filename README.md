@@ -5,7 +5,7 @@ An interactive Next.js website providing visual guides and tutorials for Git and
 ## Demo
 
 <!-- Add your GIF here -->
-![Git GitHub Guide Demo](public/images/Screen%20Recording%202025-03-07%20at%201.12.49%20AM.gif)
+![Git GitHub Guide Demo](public/images/git-demo.gif)
 
 ## GitHub Pages Setup - IMPORTANT!
 
